@@ -1,8 +1,12 @@
 # gpu-fan-control
 
+<div style='text-align: center'>
+    <img width='500' src='https://raw.githubusercontent.com/marcelloti/gpu-fan-control/4739c8bcd0fd84884644c3656c1a07d2eb9f588a/screenshot.png'/>
+</div>
+
 <p>Control your GPU fans speed and see statics about your card</p>
 <br/>
-<p>The current version of the project supports only NVIDIA gpu cards.</p>
+<p>The current version of the project only supports NVIDIA gpu cards.</p>
 <p>The app was tested with NVIDIA GTX 560 and NVIDIA GTX 1050 Ti, using the packages <b>nvidia-driver and nvidia-legacy-390xx-driver</b> in Debian bullseye/sid.</p>
 <p>With your collaboration this project will can support others video cards! Send your PR :)</p>
 <br/>
