@@ -1,13 +1,15 @@
 <template>
   <div id="app">
     <div id="nav">
-      GPU Temperature Graph
     </div>
     <router-view />
   </div>
 </template>
 
 <style>
+#nav{
+  display: none;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

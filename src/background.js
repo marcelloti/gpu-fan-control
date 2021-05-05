@@ -74,7 +74,7 @@ async function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
         width: 850,
-        height: 790,
+        height: 690,
         webPreferences: {
             // Required for Spectron testing
             enableRemoteModule: true,
