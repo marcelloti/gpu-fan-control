@@ -1,8 +1,8 @@
 # gpu-fan-control
 
-<span style="display:block;text-align:center">
+<p align="center">
     <img width='500' src='https://raw.githubusercontent.com/marcelloti/gpu-fan-control/main/screenshot.png'/>
-</span>
+</p>
 
 <p>Control your GPU fans speed and see statics about your card</p>
 <br/>
