@@ -13,6 +13,7 @@
 <p><b>Dependencies:</b></p>
 <p> - sudo</p>
 <p> - nvidia-settings</p>
+<p> - Node v16.13.2</p>
 <br/>
 <p><b>Pre-configuration</b></p>
 <p>## (with nvidia-driver or nvidia-legacy-390xx-driver)</p>
