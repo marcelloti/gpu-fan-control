@@ -8,7 +8,8 @@
 <p>Supports <strong>multiple NVIDIA GPUs</strong> simultaneously, with per-GPU fan curves and profiles.</p>
 <br/>
 <p>The current version only supports NVIDIA GPU cards.</p>
-<p>Tested with GTX 560, GTX 1050 Ti, RTX 5070 and RTX series using <b>nvidia-driver</b> and <b>nvidia-legacy-390xx-driver</b> on Debian and Fedora-based systems.</p>
+<p>v0.3.0 tested with RTX 5070 on Fedora (Wayland/KDE) using <b>nvidia-driver</b> 580.x.<br/>
+v0.1.0 was previously tested with GTX 560 and GTX 1050 Ti on Debian using <b>nvidia-driver</b> and <b>nvidia-legacy-390xx-driver</b> — compatibility with legacy drivers in v0.3.0 is untested.</p>
 <br/>
 
 ## Features
@@ -26,22 +27,21 @@
 - `nvidia-settings` — fan speed control
 - `nvidia-smi` — temperature and clock readings
 - Node.js v18+
-- `sudo` access for `nvidia-settings` write operations (fan control)
 
 ## Pre-configuration
 
 ### X11 systems
 
 ```bash
-# Enable all GPUs and fan control in xorg
+# Enable all GPUs and fan control in xorg (nvidia-xconfig may not be installed on all distros)
 nvidia-xconfig --enable-all-gpus
 nvidia-xconfig --cool-bits=4
 
-# Reboot, then enable fan control state per GPU
+# Reboot, then enable fan control state per GPU (no sudo needed on X11)
 nvidia-settings -a '[gpu:0]/GPUFanControlState=1'
 # nvidia-settings -a '[gpu:1]/GPUFanControlState=1'  # second GPU
 
-# Required for Electron sandbox on some systems
+# Required for Electron sandbox on some Linux systems
 sudo sysctl kernel.unprivileged_userns_clone=1
 ```
 
@@ -56,11 +56,11 @@ echo 'youruser ALL=(ALL) NOPASSWD:SETENV: /usr/bin/nvidia-settings' | \
 sudo chmod 440 /etc/sudoers.d/nvidia-fan-control
 ```
 
-Then enable fan control state once (survives only until next reboot — consider adding to a startup script):
+Then enable fan control state once per boot (consider adding to a startup script):
 
 ```bash
-sudo DISPLAY=:0 WAYLAND_DISPLAY=wayland-0 XDG_RUNTIME_DIR=/run/user/$(id -u) \
-  nvidia-settings -a '[gpu:0]/GPUFanControlState=1'
+sudo -E nvidia-settings -a '[gpu:0]/GPUFanControlState=1'
+# sudo -E nvidia-settings -a '[gpu:1]/GPUFanControlState=1'  # second GPU
 ```
 
 > **Driver version mismatch:** If `nvidia-smi` shows `Driver/library version mismatch`, reboot — a driver update was installed but the old kernel module is still loaded.
@@ -88,11 +88,20 @@ npm run electron:build
 
 ## Running the AppImage
 
+**X11:**
 ```bash
-# Enable fan control state first (required on every boot)
-sudo nvidia-settings -a '[gpu:0]/GPUFanControlState=1'
+# Enable fan control state (no sudo needed on X11)
+nvidia-settings -a '[gpu:0]/GPUFanControlState=1'
 
-# On some systems:
+./gpu-fan-control-0.3.0.AppImage
+```
+
+**Wayland** (after completing the sudoers setup above):
+```bash
+# Enable fan control state
+sudo -E nvidia-settings -a '[gpu:0]/GPUFanControlState=1'
+
+# On some systems (Debian/Ubuntu):
 sudo sysctl kernel.unprivileged_userns_clone=1
 
 ./gpu-fan-control-0.3.0.AppImage
