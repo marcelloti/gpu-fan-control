@@ -33,7 +33,7 @@ v0.1.0 was previously tested with GTX 560 and GTX 1050 Ti on Debian using <b>nvi
 ### X11 systems
 
 ```bash
-# Enable all GPUs and fan control in xorg (nvidia-xconfig may not be installed on all distros)
+# Enable all GPUs and fan control in xorg
 nvidia-xconfig --enable-all-gpus
 nvidia-xconfig --cool-bits=4
 
